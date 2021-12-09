@@ -4,10 +4,12 @@ let horizontal_focus_index = 0
 let lastcurrentActive 
 let currentIndex = null
 let currentActive
+const verticalParentClass = 'parent'
 
 const mainContainer = document.getElementById('container')
 const vNavEl = mainContainer.children
 for(let i = 0; i < vNavEl.length; i++){
+  vNavEl[i].classList.add(verticalParentClass)
   vertical_nav.push(vNavEl[i].id)
 }
 
@@ -125,6 +127,9 @@ const upDownFocus = (navDirection) => {
       currentIndex--
       currentActive = vertical_nav[currentIndex]
       getFocused()
+    } else{
+      currentActive = vertical_nav[0]
+      getFocused()
     }
   }
 
@@ -181,7 +186,7 @@ const getNextHorizontal = (elDir) => {
   const activeChildParent = document.getElementById(currentActive).parentElement
   const activeParentChildren = activeChildParent.querySelectorAll('div')
 
-  if(activeChildParent.children.length){
+  if(activeChildParent.children.length && activeChildParent.classList.contains(verticalParentClass)){
     const activeChild = document.getElementById(currentActive)
     activeParentChildren.forEach(child => {
       if(child == activeChild){
