@@ -22,6 +22,7 @@ currentActive = vertical_focus
 // check if Vertical element have children focus a child
 const focusElmChildren = (elmID) =>{
   const myElement = document.getElementById(elmID);
+  lastcurrentActive = myElement
   for (let i = 0; i < myElement.children.length; i++) {
 
     // Pick the right Child Element to focus 
@@ -116,7 +117,6 @@ const upDownFocus = (navDirection) => {
     document.getElementById(currentActive).focus()
 
     focusElmChildren(currentActive)
-    
   }
 
   // Run the logic on Up
@@ -125,7 +125,6 @@ const upDownFocus = (navDirection) => {
       currentIndex--
       currentActive = vertical_nav[currentIndex]
       getFocused()
-      console.log(currentActive)
     }
   }
 
@@ -135,7 +134,9 @@ const upDownFocus = (navDirection) => {
       currentIndex++
       currentActive = vertical_nav[currentIndex]
       getFocused()
-      console.log(currentActive)
+    } else{
+      currentActive = vertical_nav[vertical_nav.length - 1]
+      getFocused()
     }
   }
 
@@ -193,14 +194,12 @@ const getNextHorizontal = (elDir) => {
             if(childIndex > 0){
               const prevChild = activeChild.previousSibling.previousElementSibling
               activateFocusChild(prevChild)
-              console.log(currentActive)
             }
             break;
           case 'next':
             if(childIndex < activeParentChildren.length - 1){
               const nextChild = activeChild.nextSibling.nextElementSibling
               activateFocusChild(nextChild)
-              console.log(currentActive)
             }
         }
       }
